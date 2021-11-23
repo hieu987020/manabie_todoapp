@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:manabie_todoapp/presentasion/create_task.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -88,14 +88,14 @@ class _HomePageState extends State<HomePage> {
 }
 
 class CustomeItem extends StatelessWidget {
-  const CustomeItem({
-    Key key,
-    @required this.imageURL,
-    @required this.color,
-  }) : super(key: key);
-
   final String imageURL;
   final Color color;
+
+  CustomeItem({
+    Key? key,
+    required this.imageURL,
+    required this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +111,7 @@ class CustomeItem extends StatelessWidget {
 }
 
 class TodoPage extends StatefulWidget {
-  const TodoPage({Key key, @required this.selectedIndex}) : super(key: key);
+  const TodoPage({Key? key, required this.selectedIndex}) : super(key: key);
   final int selectedIndex;
 
   @override
@@ -154,7 +154,9 @@ class _TodoPageState extends State<TodoPage> {
                         value: _complete,
                         onChanged: (value) {
                           setState(() {
-                            _complete = value;
+                            if (value != null) {
+                              _complete = value;
+                            }
                           });
                         },
                         title: Text(
