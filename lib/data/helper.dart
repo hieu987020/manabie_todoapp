@@ -15,16 +15,17 @@ class ObjectBox {
   ObjectBox._create(this.store) {
     // Add any additional setup code, e.g. build queries.
     todoBox = store.box<Todo>();
-    todoBox.removeAll();
+
+    // t todoBox.removeAll();
     if (todoBox.isEmpty()) {
       _putDemoData();
     }
-    final todos = todoBox.getAll();
-    todos.forEach((element) {
-      log(element.name);
-      log(element.detail ?? 'nothing');
-      log(element.status);
-    });
+    // final todos = todoBox.getAll();
+    // todos.forEach((element) {
+    //   log(element.name);
+    //   log(element.detail ?? 'nothing');
+    //   log(element.status);
+    // });
   }
 
   /// Create an instance of ObjectBox to use throughout the app.
@@ -46,19 +47,3 @@ class ObjectBox {
     todoBox.putMany(todos);
   }
 }
-
-
- // ObjectBox._viewAll(this.store) {
-  //   final box = store.box<Todo>();
-  //   final id =
-  //       box.put(Todo(name: "Hello world", detail: "This is how we hello"));
-  //   log('id is $id');
-  //   String? result = box.get(id)?.name;
-  //   log(result ?? 'nothing');
-  // }
-  // static Future<void> view() async {
-  //   final store = await openStore();
-  //   final box = store.box<Todo>();
-  //   List<Todo> result = box.getAll();
-  //   log(result.toString());
-  // }

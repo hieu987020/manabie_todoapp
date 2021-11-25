@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manabie_todoapp/data/helper.dart';
 import 'package:manabie_todoapp/data/todo.dart';
-import 'package:manabie_todoapp/main.dart';
-
-// late ObjectBox objectbox;
 
 class CreateTask extends StatefulWidget {
   const CreateTask({Key? key, required this.objectbox}) : super(key: key);
@@ -39,8 +36,3 @@ class _CreateTaskState extends State<CreateTask> {
     );
   }
 }
-
-// late ObjectBox objectbox;
-// Future<void> viewAll() async {
-//   await ObjectBox.view();
-// }
