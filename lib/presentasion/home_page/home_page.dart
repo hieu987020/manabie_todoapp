@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manabie_todoapp/data/helper.dart';
-import 'package:manabie_todoapp/data/todo.dart';
-import 'package:manabie_todoapp/domain/bloc/bloc.dart';
-import 'package:manabie_todoapp/presentasion/create_task.dart';
+import 'package:manabie_todoapp/domain/bloc/blocs.dart';
+import 'package:manabie_todoapp/presentasion/create_page/create_pages.dart';
+import 'package:manabie_todoapp/presentasion/home_page/home_pages.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.objectbox}) : super(key: key);
@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     BlocProvider.of<TodoBloc>(context)
         .add(TodoFetchEvent(status: '', objectBox: widget.objectbox));
+
     super.initState();
   }
 
@@ -113,77 +114,6 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class TodoPage extends StatelessWidget {
-  const TodoPage({
-    Key? key,
-    required this.selectedIndex,
-    required this.objectBox,
-  }) : super(key: key);
-  final int selectedIndex;
-  final ObjectBox objectBox;
-  @override
-  Widget build(BuildContext context) {
-    var state = BlocProvider.of<TodoBloc>(context).state;
-    List<Todo>? todos;
-    if (state is TodoFetchSuccess) {
-      todos = state.todos;
-    }
-    return SingleChildScrollView(
-      physics: AlwaysScrollableScrollPhysics(),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.all(8),
-                itemCount: todos?.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100.0,
-                      color: todos?.elementAt(index).status == 'Complete'
-                          ? Colors.green
-                          : Colors.yellow,
-                      width: double.infinity,
-                      child: CheckboxListTile(
-                        value: todos?.elementAt(index).status == 'Complete'
-                            ? true
-                            : false,
-                        onChanged: (value) {
-                          // setState(() {
-                          //   if (value != null) {
-                          //     _complete = value;
-                          //   }
-                          // });
-                        },
-                        title: Text(
-                          todos?.elementAt(index).name ?? 'nothing',
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                        subtitle: Text(
-                          todos?.elementAt(index).detail ?? 'nothing',
-                          style: TextStyle(
-                            fontSize: 17,
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

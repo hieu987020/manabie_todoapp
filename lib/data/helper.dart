@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:manabie_todoapp/data/todo.dart';
 import 'package:manabie_todoapp/objectbox.g.dart';
 
@@ -16,16 +15,10 @@ class ObjectBox {
     // Add any additional setup code, e.g. build queries.
     todoBox = store.box<Todo>();
 
-    // t todoBox.removeAll();
+    todoBox.removeAll();
     if (todoBox.isEmpty()) {
       _putDemoData();
     }
-    // final todos = todoBox.getAll();
-    // todos.forEach((element) {
-    //   log(element.name);
-    //   log(element.detail ?? 'nothing');
-    //   log(element.status);
-    // });
   }
 
   /// Create an instance of ObjectBox to use throughout the app.
