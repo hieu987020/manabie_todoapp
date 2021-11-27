@@ -30,6 +30,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<TodoBloc>(
           create: (BuildContext context) => TodoBloc(),
         ),
+        BlocProvider<TodoCreateBloc>(
+          create: (BuildContext context) => TodoCreateBloc(),
+        ),
       ],
       child: MaterialApp(
         title: 'Todo App Manabie',

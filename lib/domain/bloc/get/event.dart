@@ -15,7 +15,12 @@ class TodoFetchEvent extends TodoEvent {
 }
 
 class TodoUpdateEvent extends TodoEvent {
-  TodoUpdateEvent({required this.todo, required this.objectBox});
+  TodoUpdateEvent({
+    required this.todo,
+    required this.objectBox,
+    required this.indexPage,
+  });
   final Todo? todo;
   final ObjectBox objectBox;
+  final int indexPage;
 }

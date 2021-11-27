@@ -40,80 +40,91 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Todo App'),
-        actions: [
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              if (value == "Create Task") {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CreateTask(
-                            objectbox: widget.objectbox,
-                          )),
-                );
-              }
-            },
-            itemBuilder: (BuildContext context) {
-              return {'Create Task', 'Settings'}.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();
-            },
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: CustomeItem(
-                imageURL: "assets/images/all.png", color: Colors.grey),
-            activeIcon: CustomeItem(
-                imageURL: "assets/images/all.png", color: Colors.blue),
-            label: 'All Tasks',
-          ),
-          BottomNavigationBarItem(
-            icon: CustomeItem(
-                imageURL: "assets/images/complete.png", color: Colors.grey),
-            activeIcon: CustomeItem(
-                imageURL: "assets/images/complete.png", color: Colors.blue),
-            label: 'Complete',
-          ),
-          BottomNavigationBarItem(
-            icon: CustomeItem(
-                imageURL: "assets/images/incomplete.png", color: Colors.grey),
-            activeIcon: CustomeItem(
-                imageURL: "assets/images/incomplete.png", color: Colors.blue),
-            label: 'Incomplete',
-          ),
-        ],
-      ),
-      body: BlocBuilder<TodoBloc, TodoState>(
-        builder: (context, state) {
-          if (state is TodoFetchSuccess) {
-            return TodoPage(
-              selectedIndex: _selectedIndex,
-              objectBox: widget.objectbox,
-            );
-          } else if (state is TodoFetchError) {
+    return BlocListener<TodoCreateBloc, TodoCreateState>(
+      listener: (context, state) {
+        if (state is TodoCreateLoaded) {
+          _onItemTapped(2);
+        }
+        if (state is TodoCreateShowNotification) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Create successful!')));
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Todo App'),
+          actions: [
+            PopupMenuButton<String>(
+              onSelected: (value) {
+                if (value == "Create Task") {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CreateTask(
+                              objectbox: widget.objectbox,
+                            )),
+                  );
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return {'Create Task', 'Settings'}.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(choice),
+                  );
+                }).toList();
+              },
+            ),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: CustomeItem(
+                  imageURL: "assets/images/all.png", color: Colors.grey),
+              activeIcon: CustomeItem(
+                  imageURL: "assets/images/all.png", color: Colors.blue),
+              label: 'All Tasks',
+            ),
+            BottomNavigationBarItem(
+              icon: CustomeItem(
+                  imageURL: "assets/images/complete.png", color: Colors.grey),
+              activeIcon: CustomeItem(
+                  imageURL: "assets/images/complete.png", color: Colors.blue),
+              label: 'Complete',
+            ),
+            BottomNavigationBarItem(
+              icon: CustomeItem(
+                  imageURL: "assets/images/incomplete.png", color: Colors.grey),
+              activeIcon: CustomeItem(
+                  imageURL: "assets/images/incomplete.png", color: Colors.blue),
+              label: 'Incomplete',
+            ),
+          ],
+        ),
+        body: BlocBuilder<TodoBloc, TodoState>(
+          builder: (context, state) {
+            if (state is TodoFetchSuccess) {
+              return TodoPage(
+                selectedIndex: _selectedIndex,
+                objectBox: widget.objectbox,
+              );
+            } else if (state is TodoFetchError) {
+              return Center(
+                child: Container(
+                  child: Text("Error"),
+                ),
+              );
+            }
             return Center(
-              child: Container(
-                child: Text("Error"),
+              child: CircularProgressIndicator(
+                color: Colors.grey,
               ),
             );
-          }
-          return Center(
-            child: CircularProgressIndicator(
-              color: Colors.grey,
-            ),
-          );
-        },
+          },
+        ),
       ),
     );
   }

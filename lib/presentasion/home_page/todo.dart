@@ -59,18 +59,21 @@ class _TodoPageState extends State<TodoPage> {
                                 .add(TodoUpdateEvent(
                               todo: todos?.elementAt(index),
                               objectBox: widget.objectBox,
+                              indexPage: widget.selectedIndex,
                             ));
                           });
                         },
                         title: Text(
                           todos?.elementAt(index).name ?? 'nothing',
                           style: Theme.of(context).textTheme.headline5,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         subtitle: Text(
                           todos?.elementAt(index).detail ?? 'nothing',
                           style: TextStyle(
                             fontSize: 17,
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
@@ -84,75 +87,75 @@ class _TodoPageState extends State<TodoPage> {
     );
   }
 
-  confirmDialog(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (_) => Dialog(
-        // backgroundColor: Colors.transparent,
-        child: Container(
-          alignment: FractionalOffset.center,
-          height: 250,
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Finish this task?',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    height: 50,
-                    width: 100,
-                    decoration: BoxDecoration(color: Colors.blue),
-                    child: TextButton(
-                      child: Text(
-                        'Yes',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                  Container(
-                    height: 50,
-                    width: 100,
-                    decoration: BoxDecoration(color: Colors.grey),
-                    child: TextButton(
-                      child: Text(
-                        'No',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // confirmDialog(BuildContext context) {
+  //   return showDialog(
+  //     context: context,
+  //     builder: (_) => Dialog(
+  //       // backgroundColor: Colors.transparent,
+  //       child: Container(
+  //         alignment: FractionalOffset.center,
+  //         height: 250,
+  //         padding: const EdgeInsets.all(20.0),
+  //         child: Column(
+  //           children: [
+  //             Row(
+  //               children: [
+  //                 Container(
+  //                   alignment: Alignment.center,
+  //                   child: Text(
+  //                     'Finish this task?',
+  //                     style: TextStyle(
+  //                       fontSize: 25,
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                     textAlign: TextAlign.center,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.end,
+  //               children: [
+  //                 Container(
+  //                   height: 50,
+  //                   width: 100,
+  //                   decoration: BoxDecoration(color: Colors.blue),
+  //                   child: TextButton(
+  //                     child: Text(
+  //                       'Yes',
+  //                       style: TextStyle(
+  //                         color: Colors.white,
+  //                         fontSize: 20,
+  //                         fontWeight: FontWeight.bold,
+  //                       ),
+  //                     ),
+  //                     onPressed: () {},
+  //                   ),
+  //                 ),
+  //                 Container(
+  //                   height: 50,
+  //                   width: 100,
+  //                   decoration: BoxDecoration(color: Colors.grey),
+  //                   child: TextButton(
+  //                     child: Text(
+  //                       'No',
+  //                       style: TextStyle(
+  //                         color: Colors.white,
+  //                         fontSize: 20,
+  //                         fontWeight: FontWeight.bold,
+  //                       ),
+  //                     ),
+  //                     onPressed: () {
+  //                       Navigator.pop(context);
+  //                     },
+  //                   ),
+  //                 ),
+  //               ],
+  //             )
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

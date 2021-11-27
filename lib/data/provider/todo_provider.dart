@@ -6,12 +6,13 @@ class TodoProvider {
   final ObjectBox objectBox;
 
   List<Todo> fetchTodo(String status) {
-    final queryNullText =
-        objectBox.todoBox.query(Todo_.status.contains(status)).build();
-    return queryNullText.find();
+    final queryNullText = objectBox.todoBox.query(Todo_.status.contains(status))
+      ..order(Todo_.date, flags: Order.descending);
+    return queryNullText.build().find();
   }
 
-  void updateTodo(Todo todo) {
+  void putTodo(Todo todo) {
+    todo.date = DateTime.now();
     objectBox.todoBox.put(todo);
   }
 

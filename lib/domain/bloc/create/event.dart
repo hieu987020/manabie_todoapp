@@ -1,9 +1,18 @@
 import 'package:equatable/equatable.dart';
 
-abstract class TodoUpdateEvent extends Equatable {
-  const TodoUpdateEvent();
+import 'package:manabie_todoapp/data/data.dart';
+
+abstract class TodoCreateEvent extends Equatable {
+  const TodoCreateEvent();
   @override
   List<Object?> get props => [];
 }
 
-class TodoUpdateStatusEvent extends TodoUpdateEvent {}
+class TodoCreateSubmitEvent extends TodoCreateEvent {
+  TodoCreateSubmitEvent({
+    required this.todo,
+    required this.objectBox,
+  });
+  final Todo todo;
+  final ObjectBox objectBox;
+}

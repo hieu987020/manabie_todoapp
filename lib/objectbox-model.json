@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:27809188797693798",
-      "lastPropertyId": "4:12490531379472180",
+      "lastPropertyId": "5:4638974057609358957",
       "name": "Todo",
       "properties": [
         {
@@ -28,6 +28,11 @@
           "id": "4:12490531379472180",
           "name": "status",
           "type": 9
+        },
+        {
+          "id": "5:4638974057609358957",
+          "name": "date",
+          "type": 10
         }
       ],
       "relations": []

@@ -7,6 +7,7 @@ class Todo {
   String name;
   String? detail;
   String status;
-
+  @Property(type: PropertyType.date)
+  DateTime date = DateTime.now();
   Todo({required this.name, this.detail, this.status = "Incomplete"});
 }

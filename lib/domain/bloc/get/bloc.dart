@@ -30,8 +30,14 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         newTodo.status == 'Complete'
             ? newTodo.status = 'Incomplete'
             : newTodo.status = 'Complete';
-        todoProvider.updateTodo(todo);
-        List<Todo> todos = todoProvider.fetchTodo('');
+        todoProvider.putTodo(todo);
+        String status = '';
+        if (event.indexPage == 1) {
+          status = 'Complete';
+        } else if (event.indexPage == 2) {
+          status = 'Incomplete';
+        }
+        List<Todo> todos = todoProvider.fetchTodo(status);
         emit(TodoFetchSuccess(todos));
       } else {
         emit(TodoUpdateFailure());

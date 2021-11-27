@@ -17,7 +17,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 27809188797693798),
       name: 'Todo',
-      lastPropertyId: const IdUid(4, 12490531379472180),
+      lastPropertyId: const IdUid(5, 4638974057609358957),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -39,6 +39,11 @@ final _entities = <ModelEntity>[
             id: const IdUid(4, 12490531379472180),
             name: 'status',
             type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(5, 4638974057609358957),
+            name: 'date',
+            type: 10,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -91,11 +96,12 @@ ModelDefinition getObjectBoxModel() {
           final detailOffset =
               object.detail == null ? null : fbb.writeString(object.detail!);
           final statusOffset = fbb.writeString(object.status);
-          fbb.startTable(5);
+          fbb.startTable(6);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, nameOffset);
           fbb.addOffset(2, detailOffset);
           fbb.addOffset(3, statusOffset);
+          fbb.addInt64(4, object.date.millisecondsSinceEpoch);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -110,7 +116,9 @@ ModelDefinition getObjectBoxModel() {
                   .vTableGetNullable(buffer, rootOffset, 8),
               status:
                   const fb.StringReader().vTableGet(buffer, rootOffset, 10, ''))
-            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
+            ..date = DateTime.fromMillisecondsSinceEpoch(
+                const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0));
 
           return object;
         })
@@ -132,4 +140,7 @@ class Todo_ {
 
   /// see [Todo.status]
   static final status = QueryStringProperty<Todo>(_entities[0].properties[3]);
+
+  /// see [Todo.date]
+  static final date = QueryIntegerProperty<Todo>(_entities[0].properties[4]);
 }
