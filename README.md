@@ -1,7 +1,8 @@
 # A Flutter project for todo app. Using ObjectBox as local database.
 ### Example
 <img src="https://github.com/hieu987020/todo_objectbox/blob/main/raw/create.gif?raw=true" width="200"/>
-```ruby
+
+```dart
 import 'dart:async';
 import 'dart:isolate';
 import 'dart:typed_data';
