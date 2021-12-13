@@ -1,4 +1,4 @@
-# A Flutter project todo app.
+# A Flutter project: Todo app.
 State management: Bloc pattern </br>
 Database: ObjectBox
 ### Example
