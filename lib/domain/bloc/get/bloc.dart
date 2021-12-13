@@ -37,6 +37,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         } else if (event.indexPage == 2) {
           status = 'Incomplete';
         }
+        // List<Todo> todoTest = await todoProvider.test('');
+        // print(todoTest.length);
         List<Todo> todos = todoProvider.fetchTodo(status);
         emit(TodoFetchSuccess(todos));
       } else {

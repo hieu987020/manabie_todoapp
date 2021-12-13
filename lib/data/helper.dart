@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:manabie_todoapp/data/todo.dart';
 import 'package:manabie_todoapp/objectbox.g.dart';
 
@@ -13,8 +14,8 @@ class ObjectBox {
 
   ObjectBox._create(this.store) {
     // Add any additional setup code, e.g. build queries.
-    todoBox = store.box<Todo>();
 
+    todoBox = store.box<Todo>();
     todoBox.removeAll();
     if (todoBox.isEmpty()) {
       _putDemoData();
@@ -26,6 +27,12 @@ class ObjectBox {
     // Future<Store> openStore() {...} is defined in the generated objectbox.g.dart
     final store = await openStore();
     return ObjectBox._create(store);
+  }
+
+  Future<List<Todo>> test(String status) async {
+    final queryNullText = todoBox.query(Todo_.status.contains(status))
+      ..order(Todo_.date, flags: Order.descending);
+    return queryNullText.build().find();
   }
 
   void _putDemoData() {
