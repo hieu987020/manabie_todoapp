@@ -1,16 +1,35 @@
-# manabie_todoapp
+A Flutter project for todo app. Using ObjectBox as local database.
+Example
+```
+import 'dart:async';
+import 'dart:isolate';
+import 'dart:typed_data';
+import 'package:manabie_todoapp/data/data.dart';
+import 'package:manabie_todoapp/objectbox.g.dart';
 
-A new Flutter project.
+class TodoProvider {
+  TodoProvider(this.objectBox);
+  final ObjectBox objectBox;
 
-## Getting Started
+  List<Todo> fetchTodo(String status) {
+    final queryNullText = objectBox.todoBox.query(Todo_.status.contains(status))
+      ..order(Todo_.date, flags: Order.descending);
+    return queryNullText.build().find();
+  }
 
-This project is a starting point for a Flutter application.
+  Future<List<Todo>> test(String status) async {
+    final receivePort = ReceivePort();
+    Store? store = await createDataIsolate(receivePort.sendPort);
+    final queryNullText = store!
+        .box<Todo>()
+        .query(Todo_.status.contains(status))
+      ..order(Todo_.date, flags: Order.descending);
+    return queryNullText.build().find();
+  }
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  void putTodo(Todo todo) {
+    todo.date = DateTime.now();
+    objectBox.todoBox.put(todo);
+  }
+}
+```
